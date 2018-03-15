@@ -1,0 +1,4 @@
+- name: Patch files using patch utility
+  command: patch tmp/build/{{ item.original }} {{ item.patch }}
+  with_items:
+    - "{{ patches }}"

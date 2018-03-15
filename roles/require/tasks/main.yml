@@ -1,0 +1,9 @@
+- name: Ensure target directories exist
+  file: path=tmp/build/{{ item.destination }} state=directory
+  with_items:
+    - "{{ files }}"
+
+- name: Copy original files to destination directory
+  copy: src=dependencies/{{ item.src }} dest=tmp/build/{{ item.destination }}
+  with_items:
+    - "{{ files }}"

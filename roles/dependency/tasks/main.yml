@@ -1,0 +1,6 @@
+- name: Install dependencies
+  git:
+    repo: "{{ item.git_repo }}"
+    dest: "dependencies/{{ item.destination }}"
+  with_items:
+    - "{{ dependency_list }}"
