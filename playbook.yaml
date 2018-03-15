@@ -1,8 +1,8 @@
 ---
-- name: Install WordPress, MySQL, Nginx, and PHP-FPM
+- name: Build simple crew modification for multiple regions
   hosts: all
   vars:
-   title: Special modification test
+   name: simple_crew
    build_id: "{{ ansible_date_time.iso8601_micro | to_uuid }}"
    game_version: 0.7.2.1
    region: "{{ lookup('env','REGION') }}"
@@ -41,7 +41,7 @@
       archive:
         path:
           - tmp/dest/
-        dest: "{{ build_id }}.zip"
+        dest: "{{name}}_{{ build_id }}.zip"
         format: zip
 
     - name: remove build directory
