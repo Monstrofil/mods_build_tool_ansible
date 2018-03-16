@@ -2,7 +2,6 @@
 - name: Build simple crew modification for multiple regions
   hosts: all
   vars:
-   name: simple_crew
    build_id: "{{ ansible_date_time.iso8601_micro | to_uuid }}"
    game_version: 0.7.2.1
    region: "{{ lookup('env','REGION') }}"
@@ -20,15 +19,9 @@
     - role: patch
       patches:
         - { patch: 'src/{{ region }}/dock.xml.patch', original: 'gui/unbound/dock.xml' }
-  tasks:
-    - name: add required string into USSExpressionsLoader.xml
-      xml:
-        path: tmp/build/gui/flash/USSExpressionsLoader.xml
-        xpath: /data/expressions_files
-        pretty_print: yes
-        add_children:
-          - file:
-              path: ../unbound/flash/dock.swf
+    - role: usscompile
+      files:
+        - { src: 'gui/unbound/dock.xml', name: 'simple_crew' }
 
   post_tasks:
     - name: create res_mods structure
@@ -41,8 +34,11 @@
       archive:
         path:
           - tmp/dest/
-        dest: "{{name}}_{{ build_id }}.zip"
+        dest: "{{ build_id }}.zip"
         format: zip
 
     - name: remove build directory
-      file: path=tmp state=absent
+      file: path=tmp/build state=absent
+
+    - name: remove dest directory
+      file: path=tmp/dest state=absent

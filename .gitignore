@@ -1,4 +1,6 @@
 dependencies/*
 .idea
 .git
-tmp
+tmp/*
+xml2as/*
+flexsdk/*

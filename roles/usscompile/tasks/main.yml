@@ -1,0 +1,36 @@
+- name: Copy xml2as tool to remote server
+  unarchive: src=xml2as.zip dest=.
+
+- name: Compile xml unbound files
+  command: python xml2as/xml2as.pyc -i tmp/build/{{ item.src }} -n {{ item.name }} -f "tmp/flexsdk"
+  with_items:
+    - "{{ files }}"
+
+- name: create gui/unbound/flash structure
+  file: path=tmp/build/gui/unbound/flash state=directory
+
+- name: copy swf files to destination
+  copy: src="{{ item.name }}.swf" dest=tmp/build/gui/unbound/flash remote_src=yes
+  with_items:
+    - "{{ files }}"
+
+- name: add required string into USSExpressionsLoader.xml
+  xml:
+    path: tmp/build/gui/flash/USSExpressionsLoader.xml
+    xpath: /data/expressions_files
+    pretty_print: yes
+    add_children:
+      - file:
+          path: "../unbound/flash/{{ item.name }}.swf"
+  with_items:
+    - "{{ files }}"
+
+- name: Remove old as files
+  file: path="{{ item.name }}.as" state=absent
+  with_items:
+    - "{{ files }}"
+
+- name: Remove old swf files
+  file: path="{{ item.name }}.swf" state=absent
+  with_items:
+    - "{{ files }}"

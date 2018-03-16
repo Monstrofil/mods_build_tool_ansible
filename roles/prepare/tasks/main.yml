@@ -12,7 +12,6 @@
   changed_when: false
 
 - block:
-
     - name: download get-pip.py
       get_url: url=https://bootstrap.pypa.io/get-pip.py  dest=/tmp
 
@@ -24,7 +23,19 @@
 
   when: pip_is_installed.rc != 0
 
-
 - name: install pip packages
   pip:
     name: lxml
+
+- name: download flexSDK to remote
+  get_url:
+    url: http://download.macromedia.com/pub/flex/sdk/flex_sdk_4.6.zip
+    dest: tmp
+
+- name: Unzip flexSDK to remote
+  command: unzip -n tmp/flex_sdk_4.6.zip -d tmp/flexsdk
+
+- name: install java
+  apt:
+    name: default-jre
+    state: present
