@@ -1,0 +1,5 @@
+- name: remove build directory
+  file: path=tmp/build state=absent
+
+- name: remove dest directory
+  file: path=tmp/dest state=absent

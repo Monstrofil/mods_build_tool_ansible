@@ -3,14 +3,17 @@
   hosts: all
   vars:
    build_id: "{{ ansible_date_time.iso8601_micro | to_uuid }}"
+   title: "simple_crew"
    game_version: 0.7.2.1
+   version: 1.0
    region: "{{ lookup('env','REGION') }}"
+   timestamp: "{{lookup('pipe','date +%Y%m%d%H%M%S')}}"
   roles:
     - role: prepare
-    - role: dependency
+    - role: install_dependencies
       dependency_list:
         - { git_repo: 'https://github.com/Monstrofil/game_client_files.git', destination: '@game-files' }
-    - role: require
+    - role: copy_required_files
       files:
         - { src: '@game-files/gui/unbound/dock.xml',
             destination: 'gui/unbound/' }
@@ -22,23 +25,5 @@
     - role: usscompile
       files:
         - { src: 'gui/unbound/dock.xml', name: 'simple_crew' }
-
-  post_tasks:
-    - name: create res_mods structure
-      file: path=tmp/dest/res_mods/{{ game_version }} state=directory
-
-    - name: copy build directory into res_mods
-      command: cp -r tmp/build/. tmp/dest/res_mods/{{ game_version }}/
-
-    - name: Ansible zip directory example
-      archive:
-        path:
-          - tmp/dest/
-        dest: "{{ build_id }}.zip"
-        format: zip
-
-    - name: remove build directory
-      file: path=tmp/build state=absent
-
-    - name: remove dest directory
-      file: path=tmp/dest state=absent
+    - role: create_package
+    - role: cleanup

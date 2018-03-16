@@ -1,0 +1,12 @@
+- name: create res_mods structure
+  file: path=tmp/dest/res_mods/{{ game_version }} state=directory
+
+- name: copy build directory into res_mods
+  command: cp -r tmp/build/. tmp/dest/res_mods/{{ game_version }}/
+
+- name: create zip file
+  archive:
+    path:
+      - tmp/dest/
+    dest: "{{ title }}.{{ timestamp }}.{{ region }}.zip"
+    format: zip
