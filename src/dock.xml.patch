@@ -44,8 +44,8 @@ index 827924c..229c0bc 100644
 +						<width value="200px"/>
 +						<height value="30px"/>
 +					</style>
-+					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? 'Get primary crew back to the ship': 'Primary crew is not set. Set primary crew using rigth-click on the ship commander.')}], _maxWidth: 250 }"/>
-+					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? 'Get primary crew back': 'Primary crew is not set'), _enabled: (defaultCrewId > 0), _dispatchEvent: 'evAssignCrewClick' }"/>
++					<bind name="tooltip" value="'MouseInstructionTooltip'; { _mouseInstructions: [{_type: 'left', _instructionText: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK }}': '{{ IDS_PLEASE_CHOOSE_PRIMARY_CREW }}')}], _maxWidth: 250 }"/>
++					<bind name="instance" value="'DockButton'; {_name: 'AssignCrewButton',_label: ((defaultCrewId > 0) ? '{{ IDS_GET_CREW_BACK_SHORT }}': '{{ IDS_NO_PRIMARY_CREW }}'), _enabled: (defaultCrewId > 0), _dispatchEvent: 'evAssignCrewClick' }"/>
 +					<bind name="request" value="'evAssignCrewClick'; 'assignCrewToShip'; { shipId: _shipId, crewID: defaultCrewId }"/>
 +				</block>
 +			</block>
@@ -67,7 +67,7 @@ index 827924c..229c0bc 100644
 +				<styleClass value="$TextDefault"/>
 +				<styleClass value="$MiddleVAligned"/>
 +				<styleClass value="$ContextMenuListItemContent"/>
-+				<bind name="text" value="'Mark crew as primary'"/>
++				<text value="Отметить командира основным"/>
 +			</block>
 +		</block>
 +		<block>

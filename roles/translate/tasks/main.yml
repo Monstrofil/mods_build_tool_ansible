@@ -1,0 +1,9 @@
+- name: Include translation variables
+  include_vars: 'locale/{{ region }}.yml'
+
+- name: Translate files using Jinja2
+  template:
+    src: tmp/build/{{ item.filename }}
+    dest: tmp/build/{{ item.filename }}
+  with_items:
+    - "{{ items }}"

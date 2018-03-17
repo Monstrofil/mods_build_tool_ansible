@@ -21,7 +21,10 @@
             destination: 'gui/flash/' }
     - role: patch
       patches:
-        - { patch: 'src/{{ region }}/dock.xml.patch', original: 'gui/unbound/dock.xml' }
+        - { patch: 'src/dock.xml.patch', original: 'gui/unbound/dock.xml' }
+    - role: translate
+      items:
+        - { filename: 'gui/unbound/dock.xml' }
     - role: usscompile
       files:
         - { src: 'gui/unbound/dock.xml', name: 'simple_crew' }

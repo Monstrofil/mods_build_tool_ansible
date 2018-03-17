@@ -27,13 +27,22 @@
   pip:
     name: lxml
 
-- name: download flexSDK to remote
-  get_url:
-    url: http://download.macromedia.com/pub/flex/sdk/flex_sdk_4.6.zip
-    dest: tmp
+- name: check to see if flexsdk is already installed
+  stat: path=tmp/flexsdk
+  register: flexsdk_is_installed
+  ignore_errors: true
+  changed_when: false
 
-- name: Unzip flexSDK to remote
-  command: unzip -n tmp/flex_sdk_4.6.zip -d tmp/flexsdk
+- block:
+  - name: download flexSDK to remote
+    get_url:
+      url: http://download.macromedia.com/pub/flex/sdk/flex_sdk_4.6.zip
+      dest: tmp
+
+  - name: Unzip flexSDK to remote
+    command: unzip -n tmp/flex_sdk_4.6.zip -d tmp/flexsdk
+
+  when: flexsdk_is_installed.stat.exists == False
 
 - name: install java
   apt:
