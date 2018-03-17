@@ -67,7 +67,7 @@ index 827924c..229c0bc 100644
 +				<styleClass value="$TextDefault"/>
 +				<styleClass value="$MiddleVAligned"/>
 +				<styleClass value="$ContextMenuListItemContent"/>
-+				<text value="Отметить командира основным"/>
++				<text value="{{ IDS_MARK_AS_PRIMARY }}"/>
 +			</block>
 +		</block>
 +		<block>
