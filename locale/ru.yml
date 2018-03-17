@@ -4,3 +4,4 @@ IDS_PLEASE_CHOOSE_PRIMARY_CREW: 'Основной командир не выбр
 IDS_GET_CREW_BACK_SHORT: 'Вернуть основного командира'
 IDS_NO_PRIMARY_CREW: 'Основной командир не выбран'
 IDS_MARK_AS_PRIMARY: 'Отметить командира основным'
+IDS_PRIMARY_CREW_SET: 'Основной командир уже на корабле'
