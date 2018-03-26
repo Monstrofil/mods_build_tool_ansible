@@ -1,0 +1,10 @@
+- block:
+  - name: create gui/flash structure
+    file: path=tmp/build/gui/flash state=directory
+
+  - name: Compile swf files
+    command: "tmp/flexsdk/bin/mxmlc {{ target_file }}
+      -compatibility-version 4.12.1
+      -source-path {{ source_path }}
+      -library-path {{ library_path }}
+      -output tmp/build/{{ output_file }}"

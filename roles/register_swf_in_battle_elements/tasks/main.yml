@@ -1,0 +1,41 @@
+- name: add elements into battle_elements.xml
+  xml:
+    path: tmp/build/gui/battle_elements.xml
+    xpath: /battle_elements.xml/elementList
+    pretty_print: yes
+    add_children:
+      - element: "{{ item }}"
+  with_items:
+    - "{{ elements }}"
+  when: elements is defined
+
+- name: delete elements from battle_elements.xml
+  xml:
+    path: tmp/build/gui/battle_elements.xml
+    xpath: /battle_elements.xml/elementList/element[@name="{{item.name}}"]
+    state: absent
+    pretty_print: yes
+  with_items:
+    - "{{ remove_elements }}"
+  when: remove_elements is defined
+
+- name: delete controllers from battle_elements.xml
+  xml:
+    path: tmp/build/gui/battle_elements.xml
+    xpath: /battle_elements.xml/controllers/controller[@class="{{item.class}}" and @clips="{{item.clips}}"]
+    state: absent
+    pretty_print: yes
+  with_items:
+    - "{{ controllers }}"
+  when: controllers is defined
+
+- name: add controllers into battle_elements.xml
+  xml:
+    path: tmp/build/gui/battle_elements.xml
+    xpath: /battle_elements.xml/controllers
+    pretty_print: yes
+    add_children:
+      - controller: "{{ item }}"
+  with_items:
+    - "{{ remove_controllers }}"
+  when: remove_controllers is defined
