@@ -27,7 +27,7 @@
     pretty_print: yes
   with_items:
     - "{{ controllers }}"
-  when: controllers is defined
+  when: remove_controllers is defined
 
 - name: add controllers into battle_elements.xml
   xml:
@@ -38,4 +38,4 @@
       - controller: "{{ item }}"
   with_items:
     - "{{ remove_controllers }}"
-  when: remove_controllers is defined
+  when: controllers is defined
