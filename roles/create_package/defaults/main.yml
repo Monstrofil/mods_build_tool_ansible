@@ -1,0 +1,4 @@
+---
+
+game_version: "{{ lookup('env','GAME_VERSION') }}"
+timestamp: "{{lookup('pipe','date +%Y%m%d%H%M%S')}}"
