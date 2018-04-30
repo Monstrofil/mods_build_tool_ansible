@@ -1,7 +1,12 @@
-- name: Copy xml2as tool to remote server
+- name: create gui/flash structure
+  file:
+    path: "{{build_dir}}gui/flash/"
+    state: directory
+
+- name: copy xml2as tool to remote server
   unarchive: src=xml2as.zip dest=.
 
-- name: Compile xml unbound files
+- name: compile xml unbound files
   command: python xml2as/xml2as.pyc -i "{{build_dir}}{{ item.src }}" -n {{ item.name }} -f "tmp/flexsdk"
   with_items:
     - "{{ files }}"
