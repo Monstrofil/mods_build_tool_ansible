@@ -1,0 +1,10 @@
+# coding=utf-8
+from usslib import register_uss_expression_swf
+
+API_VERSION = 'API_v1.0'
+MOD_NAME = '{{modname}}'
+
+{% for filepath in files %}
+register_uss_expression_swf('{{filepath}}')
+{% endfor %}
+

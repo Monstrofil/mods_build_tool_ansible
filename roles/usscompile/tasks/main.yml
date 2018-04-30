@@ -2,7 +2,7 @@
   unarchive: src=xml2as.zip dest=.
 
 - name: Compile xml unbound files
-  command: python xml2as/xml2as.pyc -i tmp/build/{{ item.src }} -n {{ item.name }} -f "tmp/flexsdk"
+  command: python xml2as/xml2as.pyc -i "{{build_dir}}{{ item.src }}" -n {{ item.name }} -f "tmp/flexsdk"
   with_items:
     - "{{ files }}"
 
@@ -10,20 +10,25 @@
   file: path=tmp/build/gui/unbound/flash state=directory
 
 - name: copy swf files to destination
-  copy: src="{{ item.name }}.swf" dest=tmp/build/gui/unbound/flash remote_src=yes
+  copy: src="{{ item.name }}.swf" dest="{{build_dir}}gui/unbound/flash" remote_src=yes
   with_items:
     - "{{ files }}"
 
-- name: add required string into USSExpressionsLoader.xml
-  xml:
-    path: tmp/build/gui/flash/USSExpressionsLoader.xml
-    xpath: /data/expressions_files
-    pretty_print: yes
-    add_children:
-      - file:
-          path: "../unbound/flash/{{ item.name }}.swf"
-  with_items:
-    - "{{ files }}"
+- name: create PnFMods structure
+  file:
+    path: "{{build_dir}}PnFMods/{{title}}/"
+    state: directory
+
+- name: copy PnFModsLoader.py file
+  copy: src="PnFModsLoader.py" dest="{{build_dir}}"
+
+- name: copy usslib.py file
+  copy: src="usslib.py" dest="{{build_dir}}PnFMods/{{title}}/"
+
+- name: fill Main.py.j2 template
+  template:
+    src: Main.py.j2
+    dest: "{{build_dir}}PnFMods/{{title}}/Main.py"
 
 - name: Remove old as files
   file: path="{{ item.name }}.as" state=absent
