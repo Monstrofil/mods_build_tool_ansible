@@ -2,7 +2,7 @@
 from usslib import register_uss_expression_swf
 
 API_VERSION = 'API_v1.0'
-MOD_NAME = '{{modname}}'
+MOD_NAME = '{{title}}'
 
 {% for filepath in files %}
 register_uss_expression_swf('{{filepath}}')
