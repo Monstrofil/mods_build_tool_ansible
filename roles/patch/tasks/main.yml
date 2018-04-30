@@ -1,4 +1,4 @@
 - name: Patch files using patch utility
-  command: patch tmp/build/{{ item.original }} {{ item.patch }}
+  command: patch tmp/build/{{ item.original }} {{ item.patch }} --no-backup-if-mismatch
   with_items:
     - "{{ patches }}"
