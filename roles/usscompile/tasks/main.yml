@@ -25,7 +25,7 @@
     state: directory
 
 - name: copy PnFModsLoader.py file
-  copy: src="PnFModsLoader.py" dest="{{build_dir}}"
+  copy: src="PnFModsLoader.py" dest="{{build_dir}}/PnFModsLoader.py"
 
 - name: copy usslib.py file
   copy: src="usslib.py" dest="{{build_dir}}PnFMods/{{title}}/"
