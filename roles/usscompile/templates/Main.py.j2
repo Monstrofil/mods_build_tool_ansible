@@ -5,6 +5,6 @@ API_VERSION = 'API_v1.0'
 MOD_NAME = '{{title}}'
 
 {% for item in files %}
-register_uss_expression_swf('../../gui/unbound/flash/{{item.name}}.swf')
+register_uss_expression_swf('../unbound/mods/{{item.name}}.swf')
 {% endfor %}
 

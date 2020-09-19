@@ -11,11 +11,11 @@
   with_items:
     - "{{ files }}"
 
-- name: create gui/unbound/flash structure
-  file: path=tmp/build/gui/unbound/flash state=directory
+- name: create gui/unbound/mods structure
+  file: path=tmp/build/gui/unbound/mods state=directory
 
 - name: copy swf files to destination
-  copy: src="{{ item.name }}.swf" dest="{{build_dir}}gui/unbound/flash" remote_src=yes
+  copy: src="{{ item.name }}.swf" dest="{{build_dir}}gui/unbound/mods" remote_src=yes
   with_items:
     - "{{ files }}"
 
