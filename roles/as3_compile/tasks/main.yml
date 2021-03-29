@@ -6,6 +6,6 @@
     command: "tmp/flexsdk/bin/mxmlc {{ target_file }}
       -compatibility-version 4.12.1
       -source-path {{ source_path }}
-      -compiler.external-library-path {{ library_path }}
+      -library-path {{ library_path }}
       -define CONFIG::debug false
       -output tmp/build/{{ output_file }}"
