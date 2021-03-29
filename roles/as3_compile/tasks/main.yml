@@ -7,5 +7,5 @@
       -compatibility-version 4.12.1
       -source-path {{ source_path }}
       -library-path {{ library_path }}
-      -compiler.define CONFIG::debug,false
+      -define CONFIG::debug false
       -output tmp/build/{{ output_file }}"
